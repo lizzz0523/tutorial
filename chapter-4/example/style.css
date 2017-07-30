@@ -56,6 +56,7 @@ table {
 	top: 0;
 	left: 0;
 	right: 0;
+  z-index: 10;
   height: 44px;
   background: #221e5f url(./logo.svg) no-repeat center center;
 }
@@ -67,6 +68,16 @@ table {
   color: #ccc;
   font-size: 0.8em;
   text-align: center;
+}
+.news-slider {
+  height: 150px;
+}
+.news-slide {
+  display: block;
+  height: 150px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .news-list ul {
   padding-left: 10px;
