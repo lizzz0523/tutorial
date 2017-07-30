@@ -118,7 +118,7 @@ if (a % 2 === 0) {
 }
 ```
 
-### 循环
+#### 循环
 js支持循环语句，通过`for`，`while`或者`do...while`语句，能重复执行某个代码块：
 
 ```javascript
@@ -132,7 +132,7 @@ while (--i) {
 }
 ```
 
-### 函数
+#### 函数
 js中，可以通过声明函数，来达到代码复用的目的。在js中使用`function`关键字声明函数，后跟着函数名、参数列表和函数体，参数列表使用括号包围，函数体使用大括号包围。通过`return`语句，函数可以返回不同的结果：
 
 ```javascript
@@ -168,4 +168,62 @@ function make() {
   }
 }
 var add4 = make();
+```
+
+### dom操作
+现在我们已经可以在浏览器里执行一些自定义的逻辑了。然而我们要如何去动态修改html文件的内容呢？这时候我们就需要使用dom了。dom是document object model的首字母缩写，亦即文档对象模型，是浏览器提供给js的，用于操作html内容的接口。
+
+但是原生的dom接口，是十分基础的接口，使用起来比较晦涩。为了方便，我们这里使用一个著名的js第三方库——jquery，来帮助我们快速的操作dom。
+
+#### 获取dom节点
+在jquery中，提供了全局的`$`函数，来帮助我们快速获取dom节点，`$`函数接受一个css选择器字符串作为参数，并把选中的dom节点包装在jquery对象中返回：
+
+```javascript
+var $list = $("#list");
+var $btn = $("#btn");
+```
+
+#### 插入dom节点
+在获取到dom节点后，我们就可以向该节点插入新的内容。jquery提供了多个不同功能的实例方法，来插入dom节点，其中最简单的为`html`方法：
+
+```javascript
+var html = "";
+
+for (var i = 0; i < 10; i++) {
+  html += "<li>" + i + "</li>";
+}
+
+$list.html(html);
+```
+
+#### 修改样式
+我们也可以通过js，动态的修改dom节点样式。同样jquery提供了`css`方法来帮忙我们快速完成任务：
+
+```javascript
+$list.css("background-color", "black");
+// 或者传入一个object，同时设置多个样式
+$list.css({
+  "font-size": "12px",
+  "line-height": "1.5em"
+});
+```
+
+#### 实现动画
+通过修改样式，我们可以改变dom节点的尺寸和位置等属性。如果我们定时的修改这些属性，就形成了动画。当然我们不需要手动的设置定时器，jquery内置了`animate`实例方法，来帮助我们快速完成动画。除此以外，jquery还提供了多个实用的预设动画，我们可以直接使用：
+
+```javascript
+$list.animate({
+    "font-size": "30px"
+});
+
+$list.slideUp();
+```
+
+#### 事件监听
+除了修改dom节点的状态，为了和用户进行交互，我们还需要监听用户在某个dom节点上的操作。例如，当用户点击按钮时，我们需要把列表的背景颜色设置为红色，通过jquery的`on`实例方法，我们可以很方便的完成该功能：
+
+```javascript
+$btn.on("click", function () {
+  $list.css("background-color", "red");
+});
 ```
