@@ -170,7 +170,7 @@ function make() {
 var add4 = make();
 ```
 
-### dom操作
+### 基本dom操作
 现在我们已经可以在浏览器里执行一些自定义的逻辑了。然而我们要如何去动态修改html文件的内容呢？这时候我们就需要使用dom了。dom是document object model的首字母缩写，亦即文档对象模型，是浏览器提供给js的，用于操作html内容的接口。
 
 但是原生的dom接口，是十分基础的接口，使用起来比较晦涩。为了方便，我们这里使用一个著名的js第三方库——jquery，来帮助我们快速的操作dom。
@@ -215,7 +215,7 @@ $list.css({
 $list.animate({
     "font-size": "30px"
 });
-
+// jquery的预设动画slide-up
 $list.slideUp();
 ```
 
@@ -225,5 +225,35 @@ $list.slideUp();
 ```javascript
 $btn.on("click", function () {
   $list.css("background-color", "red");
+});
+```
+
+### 发送ajax请求
+现在我们已经可以通过js来修改html的内容了，然而离真正的“动态”还差一步。这是由于我们还不能“动态”的区分不同用户，根据用户的不同来显示不同的内容。这时候可能有些同学就会疑惑了，我们的html，css，js都是预先编写好再下发给用户的，如何才能根据不同的用户显示不同的内容呢？这应该做不到才对啊。
+
+的确单靠现在这些，我们并不能区分不同的用户，因此我们需要借助后台接口的能力。要从后台获取数据，我们需要能让js具有发送http请求的能力，而ajax就是我们所需要的能力。ajax是asynchronous javascript and xml的首字母缩写，亦即异步javascript和xml，是js能发起http请求，并解析响应内容的一系列接口的统称。虽然名称里带有xml，然而实际上我们使用得更多的是json。
+
+如果要我们直接编写ajax相关的原生js代码，虽然不难，但要处理的细节还是比较繁琐的。不过幸运的是，jquery提供给我们一个名叫`ajax`的方法来帮助我们屏蔽这些细节。例如我们需要向后台的某个cgi发起请求，我们只需编写如下代码：
+
+```javascript
+var res = $.ajax({
+  type: "GET",
+  url: "cgi.php",
+  data: {
+    action: "get_list",
+    params: {
+      page: 0,
+      size: 1
+    }
+  },
+  dataType: "json"
+});
+
+res.done(function () {
+  // 处理返回数据
+})
+
+res.fail(function () {
+  // 处理请求错误
 });
 ```
