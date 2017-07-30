@@ -1,12 +1,12 @@
 ## js，web页面的大脑
-有了html，有了css，一个web页面就大致完成了。然而这样的"静态"web页面，算不上一个完整的web应用，因为它并不“智能”，我们还不能根据不同的场景，通过编程的手段控制页面的内容。为了实现“智能”的目的，我们需要另一个web开发利器---javascript。
+有了html，有了css，一个web页面就大致完成了。然而这样的"静态"web页面，算不上一个完整的web应用，因为它并不“智能”，我们还不能根据不同的场景，通过编程的手段控制页面的内容。为了实现“智能”的目的，我们需要另一个web开发利器——javascript。
 
 javascript是一门c-style的脚步语言，可以说没有javascript，就没有现在功能强大的web应用。
 
 ### js基础语法
 
-#### console
-console是js中的控制台对象，通过调用console对象上的方法，我们可以像浏览器控制输出信息。
+#### console对象
+console对象是js中的控制台对象，通过调用console对象上的方法，我们可以向浏览器控制输出信息。
 
 ```javascript
 console.log("hello %s", "world");
@@ -35,7 +35,7 @@ age = 29; // 然后再赋值
 除此以外，js中的数据均为对象，而其中常用的对象类型有：
 
 * Object，字典
-* Array，数字
+* Array，数组
 * RegExp，正则表达式
 * Date，日期
 
