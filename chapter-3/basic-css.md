@@ -161,8 +161,8 @@ body {
 }
 .news>span {
   margin-right: 10px;
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 60px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -173,6 +173,8 @@ body {
   overflow: hidden;
 }
 .news h2 {
+  color: #333;
+  font-size: 0.9em;
   line-height: 1.2em;
 }
 .news p {
