@@ -12,7 +12,8 @@ html为超文本标记语言，标记语言和我们平时所说的编程语言�
 <!DOCTYPE html>
 <html>
   <head>
-
+    <meta charset="utf-8" />
+    <title>标题</title>
   </head>
   <body>
 
@@ -24,14 +25,31 @@ html为超文本标记语言，标记语言和我们平时所说的编程语言�
 
 |语义|标签|
 |-|-|
-|通用|**&lt;div&gt;**, **&lt;span&gt;**|
-|标题|**&lt;h1&gt;**, **&lt;h2&gt;**, **&lt;h3&gt;**, **&lt;h4&gt;**, **&lt;h5&gt;**, **&lt;h6&gt;**|
-|段落|**&lt;p&gt;**|
 |章节|**&lt;section&gt;**|
 |页眉|**&lt;header&gt;**|
 |页脚|**&lt;footer&gt;**|
+|标题|**&lt;h1&gt;**, **&lt;h2&gt;**, **&lt;h3&gt;**, **&lt;h4&gt;**, **&lt;h5&gt;**, **&lt;h6&gt;**|
+|段落|**&lt;p&gt;**|
 |导航|**&lt;nav&gt;**|
 |图片|**&lt;img&gt;**|
+|链接|**&lt;a&gt;**|
+|通用|**&lt;div&gt;**, **&lt;span&gt;**|
+
+```html
+<section>
+  <header>
+    <h1>标题</h1>
+    <h2>副标题</h2>
+  </header>
+  <div>
+    <p><img src="img.jpg" />封面</p>
+    <p>正文</p>
+  </div>
+  <footer>
+    <p><a href="link.html">原文链接</a></p>
+  </footer>
+<section>
+```
 
 ### 列表标签
 
@@ -41,6 +59,20 @@ html为超文本标记语言，标记语言和我们平时所说的编程语言�
 |无序列表|**&lt;ul&gt;**|
 |列表项|**&lt;li&gt;**|
 
+```html
+<ul>
+  <li>列表项1</li>
+  <li>列表项2</li>
+  <li><img src="img.jpg" /></li>
+  <li>
+    <ol>
+      <li>子列表项1</li>
+      <li>子列表项2</li>
+    </ol>
+  </li>
+</ul>
+```
+
 ### 表单标签
 
 |语义|标签|
@@ -49,6 +81,22 @@ html为超文本标记语言，标记语言和我们平时所说的编程语言�
 |输入框|**&lt;input&gt;**|
 |下拉框|**&lt;select&gt;**|
 |下拉选项|**&lt;option&gt;**|
+
+```html
+<form>
+  <input type="text" />
+  <input type="radio" />
+  <input type="checkbox" />
+  <input type="password" />
+  <input type="number" />
+  <input type="date" />
+  <input type="file" />
+  <select>
+    <option>选项1</option>
+    <option>选项2</option>
+  </select>
+</form>
+```
 
 ### 完成一个新闻应用的html
 
