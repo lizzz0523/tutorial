@@ -121,4 +121,67 @@ body {
 }
 ```
 
-<sub>关于弹性盒子的详细介绍，可以参考阮一峰的[这篇文章](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)和[这篇文章](http://www.ruanyifeng.com/blog/2015/07/flex-examples.html)
+<sub>注：关于弹性盒子的详细介绍，可以参考阮一峰的[这篇文章](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)和[这篇文章](http://www.ruanyifeng.com/blog/2015/07/flex-examples.html)
+
+### 给新闻网站编写css
+
+```css
+.app {
+  font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+  font-size: 15px;
+}
+.app_header {
+  height: 44px;
+  background: #221e5f url(./logo.svg) no-repeat center center;
+}
+.app_header h1 {
+  font-size: 0;
+}
+.app_footer {
+  padding: 10px;
+  color: #ccc;
+  font-size: 0.8em;
+  text-align: center;
+}
+.news-list ul {
+  padding-left: 10px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+.news-list li {
+  padding: 10px 0;
+  padding-right: 10px;
+  border-top: 1px solid #eee;
+}
+.news-list li:first-child {
+  border-top: none;
+}
+.news {
+  display: flex;
+}
+.news>span {
+  margin-right: 10px;
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex-shrink: 0;
+}
+.news>div {
+  flex-grow: 1;
+  overflow: hidden;
+}
+.news h2 {
+  line-height: 1.2em;
+}
+.news p {
+  margin-top: 6px;
+  width: 100%;
+  color: #999;
+  font-size: 0.8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+```
