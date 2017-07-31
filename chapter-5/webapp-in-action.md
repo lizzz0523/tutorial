@@ -191,6 +191,30 @@ server {
 通过合适的标签，能更清晰的表达你的意图，也更方便以后代码的维护和变更。除了语义化以外，模块化也是非常重要的一部份，我将会结合下面的css部分来说明，如何写出更加模块化的html代码。
 
 ### 编写css
+要编写出好的css也并非易事，这里所指的困难主要来自两个方面。
+
+* 样式的兼容性问题
+* 样式的复用度问题
+
+#### 样式的兼容性问题
+由于长久以来的浏览器大战，各浏览器厂商为了彰显自己的能力，都纷纷在自家的浏览器上更加很多“厉害”的新特性以图吸引开发人员使用，而且它们各自的新的特性还互不兼容。最终造成的结果，就是开发人员为了使web页面在各个浏览器之间有一致的体验，而不得不使用各种hack技术来兼容各个浏览器。其中css就是hack横飞的重灾区。举个例子，早起的ie6浏览器不支持`position:fixed`属性，因此开发人员需要通过结合`position:absolute`和复杂的css表达式(只有ie支持)来实现相同的效果：
+
+```css
+.bottom {
+  bottom: 0;
+  position: fixed;
+  /* 以下代码只有 IE6 能解析 */
+  _bottom: auto;
+  _position: absolute;
+  /* for IE6 ，执行JS语句，documentElement即html对象，clientHeight即可视窗口高度 */
+  _top: expression(documentElement.scrollTop + documentElement.clientHeight-this.offsetHeight);
+}
+```
+
+当然，随着现在w3c标准的进一步推进，这样的css-hack出现得越来越少。
+
+#### 样式的复用度问题
+如果我们只是编写一个web页面，十来行css，当然不会考虑所谓的css复用问题，然而一个大型的web应用，一般会涉及到几十个页面，几千甚至上万行css，这时候如何提高css的复用度就变得十分重要了。
 
 ### 获取用户授权
 
