@@ -7,11 +7,26 @@
 
 #### 设计稿
 
+<div class="imgs">
+<style>
+  .imgs {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  .imgs img {
+    display: block;
+    margin: 10px;
+    width: 40%;
+    height: auto;
+  }
+</style>
 ![list](./list.png)
 ![detail](./detail.png)
 ![noreply](./detail-noreply.png)
 ![index](./index.png)
 ![reply](./reply.png)
+</div>
 
 #### 需求拆分
 
