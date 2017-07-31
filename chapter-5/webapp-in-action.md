@@ -129,10 +129,69 @@ server {
 
 然后启动ngnix，这时我们就可以在浏览器中打开`http://www.whxytest.com`来访问我们的本地文件了，同时后台接口也被正确转发到真实服务器上。
 
-### 编写html，css
+### 编写html
+虽然html并不像一般编程语言那么复杂，但也不代表可以随便写。一些良好的html编写习惯可以很好的提高html代码的质量。其中语义化就是一个很好的方法。使用合乎语义的html标签来表达所编写的内容，能使阅读代码的人更快的了解你的意图，也能帮助搜索引擎更好的索引你的web页面，一下同样是一段表示列表的html代码：
+
+#### 非语义化
+
+```html
+<div class="list">
+  <div class="item">
+    <div class="cover">
+      <span style="background-image:url(xxx.jpg)"></span>
+    </div>
+    <div class="content">
+      <div class="title">xxxxxx</div>
+      <p>xxxxxxxxx</p>
+    </div>
+  </div>
+  <div class="item">
+    <div class="cover">
+      <span style="background-image:url(xxx.jpg)"></span>
+    </div>
+    <div class="content">
+      <div class="title">xxxxxx</div>
+      <p>xxxxxxxxx</p>
+    </div>
+  </div>
+  ...
+</div>
+```
+
+#### 语义化
+
+```html
+<ul class="list">
+  <li class="list_item">
+    <div class="item">
+      <div class="item_cover">
+        <img src="xxx.jpg" />
+      </div>
+      <div class="item_content">
+        <h4>xxxxxxx</h4>
+        <p>xxxxxxx</p>
+      </div>
+    </div>
+  </li>
+  <li class="list_item">
+    <div class="item">
+      <div class="item_cover">
+        <img src="xxx.jpg" />
+      </div>
+      <div class="item_content">
+        <h4>xxxxxxx</h4>
+        <p>xxxxxxx</p>
+      </div>
+    </div>
+  </li>
+  ...
+</ul>
+```
+
+通过合适的标签，能更清晰的表达你的意图，也更方便以后代码的维护和变更。除了语义化以外，模块化也是非常重要的一部份，我将会结合下面的css部分来说明，如何写出更加模块化的html代码。
+
+### 编写css
 
 ### 获取用户授权
 
 ### 获取用户数据
-
-### 提交用户数据
