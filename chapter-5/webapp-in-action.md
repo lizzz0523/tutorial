@@ -21,11 +21,11 @@
     height: auto;
   }
 </style>
-![list](./list.png)
-![detail](./detail.png)
-![noreply](./detail-noreply.png)
-![index](./index.png)
-![reply](./reply.png)
+<img src="./list.png">
+<img src="./detail.png">
+<img src="./detail-noreply.png">
+<img src="./index.png">
+<img src="./reply.png">
 </div>
 
 #### 需求拆分
