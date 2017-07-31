@@ -7,13 +7,11 @@
 
 #### 设计稿
 
-<div class="imgs" style="display: flex;justify-content: center; flex-wrap: wrap;">
-<img src="./list.png" width="320" style="display: block; margin: 20px; border: 1px solid #eee">
-<img src="./detail.png" width="320" style="display: block; margin: 20px; border: 1px solid #eee">
-<img src="./detail-noreply.png" width="320" style="display: block; margin: 20px; border: 1px solid #eee">
-<img src="./index.png" width="320" style="display: block; margin: 20px; border: 1px solid #eee">
-<img src="./reply.png" width="320" style="display: block; margin: 20px; border: 1px solid #eee">
-</div>
+<img src="./list.png" width="320">
+<img src="./detail.png" width="320">
+<img src="./detail-noreply.png" width="320">
+<img src="./index.png" width="320">
+<img src="./reply.png" width="320">
 
 #### 需求拆分
 
@@ -85,6 +83,51 @@
 |返回结果|msg:string|提交结果|
 
 ### 安装服务器
+这里安装的服务器并非指真正生产环境的服务器，而是为了开发需要安装的本地服务器。通过本地服务器，我们可以把静态文件（html，css，js）转发到本地文件夹中。而对后台接口，我们可以直接反向代理到真实服务器上，这样就方便我们直接在本地调试，但不需要花费额外的精力来切换环境。
+
+这里我安装的nginx，在window下，可以直接下载[安装包](http://nginx.org/download/nginx-1.12.1.zip)来安装。
+
+在mac下，可以直接通过brew来安装:
+
+```bash
+brew install nginx
+```
+
+安装好以后，在nginx的配置文件中，增加如下配置：
+
+```bash
+# 静态文件转发至本地目录
+server {
+    listen       80;
+    server_name  www.whxytest.com;
+
+    location / {
+        root   /path/to/local/folder;
+        index  index.html index.htm;
+    }
+}
+
+# 真实服务器
+upstream whxytest_cgi {
+    server xxx.xxx.xxx.xxx:80;
+}
+
+# 后台接口做反向代理
+server {
+    listen       80;
+    server_name  cgi.whxytest.com;
+
+    location / {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Nginx-Proxy true;
+        proxy_pass http://whxytest_cgi;
+    }
+}
+```
+
+然后启动ngnix，这时我们就可以在浏览器中直接打开我们的本地文件了。后台接口也被正确转发到真实服务器上。
 
 ### 编写html，css
 
