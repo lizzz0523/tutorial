@@ -7,25 +7,12 @@
 
 #### 设计稿
 
-<div class="imgs">
-<style>
-  .imgs {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-  }
-  .imgs img {
-    display: block;
-    margin: 10px;
-    width: 40%;
-    height: auto;
-  }
-</style>
-<img src="./list.png">
-<img src="./detail.png">
-<img src="./detail-noreply.png">
-<img src="./index.png">
-<img src="./reply.png">
+<div class="imgs" style="display: flex;justify-content: flex-start; flex-wrap: wrap;">
+<img src="./list.png" width="160" style="display: block; margin: 10px">
+<img src="./detail.png" width="160" style="display: block; margin: 10px">
+<img src="./detail-noreply.png" width="160" style="display: block; margin: 10px">
+<img src="./index.png" width="160" style="display: block; margin: 10px">
+<img src="./reply.png" width="160" style="display: block; margin: 10px">
 </div>
 
 #### 需求拆分
