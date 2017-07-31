@@ -8,11 +8,11 @@
 #### 设计稿
 
 <div class="imgs" style="display: flex;justify-content: flex-start; flex-wrap: wrap;">
-<img src="./list.png" width="160" style="display: block; margin: 10px">
-<img src="./detail.png" width="160" style="display: block; margin: 10px">
-<img src="./detail-noreply.png" width="160" style="display: block; margin: 10px">
-<img src="./index.png" width="160" style="display: block; margin: 10px">
-<img src="./reply.png" width="160" style="display: block; margin: 10px">
+<img src="./list.png" width="320" style="display: block; margin: 10px">
+<img src="./detail.png" width="320" style="display: block; margin: 10px">
+<img src="./detail-noreply.png" width="320" style="display: block; margin: 10px">
+<img src="./index.png" width="320" style="display: block; margin: 10px">
+<img src="./reply.png" width="320" style="display: block; margin: 10px">
 </div>
 
 #### 需求拆分
