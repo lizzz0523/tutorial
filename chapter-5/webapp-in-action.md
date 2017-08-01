@@ -214,7 +214,75 @@ server {
 当然，随着现在w3c标准的进一步推进，这样的css-hack出现得越来越少。
 
 #### 样式的复用度问题
-如果我们只是编写一个web页面，十来行css，当然不会考虑所谓的css复用问题，然而一个大型的web应用，一般会涉及到几十个页面，几千甚至上万行css，这时候如何提高css的复用度就变得十分重要了。
+如果我们只是编写一个web页面，十来行css，当然不会考虑所谓的css复用问题，然而一个大型的web应用，一般会涉及到几十个页面，几千甚至上万行css，这时候如何提高css的复用度就变得十分重要了。其中之一的方式是通过css预处理器，使css变得可编程，而常见的css预处理器有：
+
+* LESS
+* SASS
+* Stylus
+
+但这些方法，对于初次接触css的同学来说，有点太复杂了。而在这里我给大家推荐另一种提高css复用度的方法——[BEM](http://getbem.com/)。BEM是Block-Element-Modifier的首字母缩写，它并不是什么编程语言或者工具，而是一种书写html-css的建议。该建议主要有以下三点：
+
+* 所有能单独存在的个体，均为一个模块
+* 所以不能单独存在，而必须依附于其他个体的，称为一个元素
+* 一个模块或者一个元素的某个状态，称为该模块或元素的修饰
+
+什么意思呢，这里举个例子，我们需要编写一个页面的，该页面为一个搜索学校老师的页面。我们很容易就想到，这个页面至少会包含两个部分，一个是搜索框，一个是搜索结果列表，而且这两个部分，应该是独立存在的（例如google就把它的搜索框和搜索结果放到不同的页面）。因此我们就可以称搜索框，和搜索列表是两个独立的**模块**。
+
+而搜索框中，会有两个不同的部分，一个是输入框，一个是提交按钮。虽然两者在某些情况下是可以独立存在的，然而在我们当前的场景下，它们都是搜索框的一部分，少了谁都不是搜索框。因此我们就可以称输入框和提交按钮，是搜索框模块中的两个元素。
+
+最后，按照我们的日常习惯，输入框在获得焦点前后，应该会出现边框颜色的不同，也就是输入框在获得焦点后会从正常状态，进入到高亮状态。因此这个高亮状态，我们可以称之为输入框元素的一个修饰。
+
+现在我们可以理解BEM的意思了，但应该还是不知道怎么编写可服用的css？其实我们只要把上面BEM的关系，映射到html的class命名上即可，BEM的建议如下：
+
+```css
+.block--modifier {
+  
+}
+.block__element--modifier {
+  
+}
+```
+
+也就是模块和元素之间用`__`划分，模块或元素和修饰之间用`--`划分。下面结合上面的输入框例子：
+
+```html
+<div class="searchbar">
+  <input class="searchbar__input" type="text">
+  <button class="searchbar__button">搜索</button>
+</div>
+```
+
+```css
+.searchbar {
+  display: flex;
+}
+.searchbar__input {
+  display: block;
+  margin: 0;
+  padding: 10px;
+  border: 1px solid #b8b8b8;
+  border-right-color: transparent;
+  outline: none;
+  height: 20px;
+  flex: 1;
+}
+.searchbar__input--focus {
+  border-color: #4791ff;
+}
+.searchbar__button {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #2d78f4;
+  outline: none;
+  width: 100px;
+  height: 42px;
+  background: #3385ff;
+  color: white;
+}
+```
+
+一旦我们按照BEM的建议书写html-css时，我们就会发现由于模块是独立存在的，因此在不同页面或者页面中的不同地方都可以重复使用。这样我们就能对html和css进行模块化，提高代码的复用度，最终有效的提高我们页面的质量。
 
 ### 获取用户授权
 
