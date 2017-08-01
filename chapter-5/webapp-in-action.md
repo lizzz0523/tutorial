@@ -223,16 +223,16 @@ server {
 但这些方法，对于初次接触css的同学来说，有点太复杂了。而在这里我给大家推荐另一种提高css复用度的方法——[BEM](http://getbem.com/)。BEM是Block-Element-Modifier的首字母缩写，它并不是什么编程语言或者工具，而是一种书写html-css的建议。该建议主要有以下三点：
 
 * 所有能单独存在的个体，均为一个模块
-* 所以不能单独存在，而必须依附于其他个体的，称为一个元素
+* 所有不能单独存在，而必须依附于其他模块的个体，称为一个元素
 * 一个模块或者一个元素的某个状态，称为该模块或元素的修饰
 
-什么意思呢，这里举个例子，我们需要编写一个页面的，该页面为一个搜索学校老师的页面。我们很容易就想到，这个页面至少会包含两个部分，一个是搜索框，一个是搜索结果列表，而且这两个部分，应该是独立存在的（例如google就把它的搜索框和搜索结果放到不同的页面）。因此我们就可以称搜索框，和搜索列表是两个独立的**模块**。
+什么意思呢，这里举个例子，我们需要编写一个页面的，该页面为一个搜索学校老师的页面。我们很容易就想到，这个页面至少会包含两个部分，一个是搜索框，一个是搜索结果列表，而且这两个部分，应该是独立存在的（例如google就把它的搜索框和搜索结果放到不同的页面）。因此我们就可以称搜索框和搜索列表是两个独立的**模块**。
 
-而搜索框中，会有两个不同的部分，一个是输入框，一个是提交按钮。虽然两者在某些情况下是可以独立存在的，然而在我们当前的场景下，它们都是搜索框的一部分，少了谁都不是搜索框。因此我们就可以称输入框和提交按钮，是搜索框模块中的两个元素。
+而搜索框中，会有两个不同的部分，一个是输入框，一个是提交按钮。虽然两者在某些情况下是可以独立存在的，然而在我们当前的场景下，它们都是搜索框的一部分，少了谁都不是搜索框。因此我们就可以称输入框和提交按钮，是搜索框模块中的两个**元素**。
 
-最后，按照我们的日常习惯，输入框在获得焦点前后，应该会出现边框颜色的不同，也就是输入框在获得焦点后会从正常状态，进入到高亮状态。因此这个高亮状态，我们可以称之为输入框元素的一个修饰。
+最后，按照我们的日常习惯，输入框在获得焦点前后，应该会出现边框颜色的不同，也就是输入框在获得焦点后会从正常状态，进入到高亮状态。因此这个高亮状态，我们可以称之为输入框元素的一个**修饰**。
 
-现在我们可以理解BEM的意思了，但应该还是不知道怎么编写可服用的css？其实我们只要把上面BEM的关系，映射到html的class命名上即可，BEM的建议如下：
+现在我们可以理解BEM的意思了，但还是不知道应该怎么编写可复用的css？其实我们只要把上面BEM的关系，映射到html的class命名上即可，BEM的建议如下：
 
 ```css
 .block--modifier {
@@ -284,6 +284,118 @@ server {
 
 一旦我们按照BEM的建议书写html-css时，我们就会发现由于模块是独立存在的，因此在不同页面或者页面中的不同地方都可以重复使用。这样我们就能对html和css进行模块化，提高代码的复用度，最终有效的提高我们页面的质量。
 
-### 获取用户授权
+### 组件化和MV*
+有了html和css，我们就可以开始编写我们的js代码了。js是一门脚本，相对于c语言来说比较简单，也没有c语言那么严格。基本上练习一两周，就可以写出比较“复杂”的js了。然而js也并没有想象中那么简单，由于web页面编程属于gui编程的一种，因此所有传统gui编程会遇到的问题，在web页面中都有机会遇到。而js作为web页面的编程语言，在编写的过程，也必然会遇到gui编程中的各种常见的坑。而其中之一的大坑就是代码强耦合问题。在我们之前编写的新闻应用例子中，我们就曾写出这样的代码：
 
-### 获取用户数据
+```javascript
+getData().done(function (data) {
+  // 渲染列表
+  $("#list").html(renderList(data.list));
+
+  // 监听列表的点击事件，这里采用了事件代理的方式，减少内存占用
+  $("#list").on("click", "li", function () {
+    var idx = $(this).data("idx");
+    var item = data.list[idx];
+
+    location.href = item.detail_url;
+  });
+});
+```
+
+这段代码咋看之下没有什么问题。然而如果我们需求变更了，需要在页面的左上角增加一个现实新闻总数的计数器，那我们就需要在`done`方法的回调函数中，写入：
+
+```javascript
+getData().done(function (data) {
+  $("#total").html(data.total);
+  ...
+});
+
+每次这样的需求变更，我们都需要破坏原来的代码，写入新的内容。久而久之，代码就会变得不可维护。产生这样结果的原因，是我们在编写代码时，把数据的获取和DOM更新强耦合在一起。而实际上，更好的做法，是把DOM的更新封装在各自的组件中，数据通过“注入”的方式和组件之间产生联系，这个封装的过程我们称之为组件化：
+
+```javascript
+var model = {
+  $data: getData(),
+
+  get: function (idx) {
+    var list = model.list;
+
+    if (!list) {
+      return null;
+    }
+
+    return list[idx];
+  }, 
+
+  done: function (fn) {
+    this.$data.then(function (data) {
+      model.list = data.list;
+      model.total = data.total;
+
+      fn && fn(data);
+    });
+  }
+};
+
+// 定义list组件
+var list = {
+  // dom元素
+  $list: $("#list"),
+  
+  // 数据注入
+  bind: function (model) {
+    list.model = model;
+
+    list.event();
+    list.watch();
+  },
+
+  event: function () {
+    var model = this.model;
+
+    this.$list.on("click", "li", function () {
+      var idx = $(this).data("idx");
+      var item = model.get(idx);
+
+      location.href = item.datail_url;
+    });
+  },
+
+  watch: function () {
+    var model = this.model;
+
+    model.done(function (data) {
+      list.render(data);
+    });
+  },
+
+  render: function (data) {
+    function renderList(list) {
+      return list.map(renderItem).join("");
+    }
+
+    function renderItem(item, idx) {
+      return `
+        <li data-idx="${ idx }">
+          <div class="news">
+            <span class="news_cover" style="background-image:url(${ item.cover_url })"></span>
+            <div>
+              <h2>${ item.title }</h2>
+              <p>${ item.description }</p>
+            </div>
+          </div>
+        </li>
+      `;
+    }
+
+    this.$list.html(renderList(data.list));
+  }
+};
+
+list.bind(model);
+```
+
+虽然代码量是多了。然而但我们需求变更时，我们就可以在编写另外的组件，然后在数据“注入”到新组件中，而原来的`list`组件不需要做任何修改。
+
+上面说的这种开发的模式，有一个更专业的名字，叫MVC，亦即Model-View-Controller，是Xerox PARC在二十世纪八十年代为编程语言Smalltalk－80发明的一种软件设计模式，已被广泛使用在gui编程领域。其中Model即为数据的部分，负责数据的获取和处理。而View是视图的意思，具体到web开发上就是指的DOM。而我们的组件，则扮演着MVC中Controller的角色。通过监听Model的变化来操作DOM更新，当用户触发DOM事件时，组件也会因应不同的情况来操作Model。
+
+当然，随着web的发展，前端工程师们在MVC的基础上又发展出MVP、MVVM等不同的开发模式，但究其本质就是MVC，只是在MVC的基础上，更加明确各部分的功能和限制，使得开发者在使用上更加便利，而这一类MVC的变体，我们都统称为MV*。

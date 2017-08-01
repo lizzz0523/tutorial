@@ -1,7 +1,7 @@
 ## js，web页面的大脑
 有了html，有了css，一个web页面就大致完成了。然而这样的"静态"web页面，算不上一个完整的web应用，因为它并不“智能”，我们还不能根据不同的场景，通过编程的手段控制页面的内容。为了实现“智能”的目的，我们需要另一个web开发利器——javascript。
 
-javascript是一门c-style的脚步语言，可以说没有javascript，就没有现在功能强大的web应用。
+javascript是一门c-style的脚本语言，可以说没有javascript，就没有现在功能强大的web应用。
 
 ### js基础语法
 
