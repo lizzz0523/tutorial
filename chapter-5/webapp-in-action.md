@@ -328,7 +328,7 @@ var model = {
   }, 
 
   done: function (fn) {
-    this.$data.then(function (data) {
+    model.$data.then(function (data) {
       model.list = data.list;
       model.total = data.total;
 
@@ -351,9 +351,9 @@ var list = {
   },
 
   event: function () {
-    var model = this.model;
+    var model = list.model;
 
-    this.$list.on("click", "li", function () {
+    list.$list.on("click", "li", function () {
       var idx = $(this).data("idx");
       var item = model.get(idx);
 
@@ -362,7 +362,7 @@ var list = {
   },
 
   watch: function () {
-    var model = this.model;
+    var model = list.model;
 
     model.done(function (data) {
       list.render(data);
@@ -388,7 +388,7 @@ var list = {
       `;
     }
 
-    this.$list.html(renderList(data.list));
+    list.$list.html(renderList(data.list));
   }
 };
 

@@ -40,7 +40,7 @@ web服务器实际上是指运行在服务端机器上的web服务器程序。�
 * ios上的UIWebView和WKWebView组件
 * android上的WebView组件
 
-它们的的功能都大致相同，组装http请求，发送到服务器，并解析http响应。
+它们的功能都大致相同，组装http请求，发送到服务器，并解析http响应。
 
 ## 什么是web页面
 
@@ -79,4 +79,4 @@ js为**javascript**的缩写，是一种运行在浏览器中的c-style的脚本
 * 该web页面采用了utf-8编码
 * 该web页面有一段话，其内容为“你好，我是你编写的第一个web页面”
 * 该web页面引用了一个名字叫style.css的css文件
-* 该web页面引用了一段名字叫index.js的js文件
+* 该web页面引用了一个名字叫index.js的js文件
