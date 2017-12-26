@@ -30,7 +30,7 @@ Rust和C语言一样，是以main函数作为程序的入口。这里，我们�
 $ rustc hello_world.rs
 ```
 
-一旦成功编译，Rust编译器就会在项目文件夹下创建一个名叫`hello_world`的可执行文件，这时我们就可以直接执行这个文件：
+一旦成功编译，Rust编译器就会在项目文件夹下创建一个名为`hello_world`的可执行文件，这时我们就可以直接执行这个文件：
 
 ```shell
 $ ./hello_world

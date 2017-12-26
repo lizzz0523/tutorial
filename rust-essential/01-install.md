@@ -1,6 +1,6 @@
 # 安装Rust
 
-官方推荐采用`rustup`来安装Rust。`rustup`是用于安装和管理Rust工具链的命令行工具。
+官方推荐采用`rustup`来安装Rust。`rustup`是用于安装和管理Rust工具链的命令行工具，类似于Nodejs的`nvm`。
 
 通过`rustup`安装Rust只需在终端运行以下命令即可：
 
