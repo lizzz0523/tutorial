@@ -30,6 +30,7 @@ struct Point {
     y: i32,
 }
 
+// 通过impl关键字定义方法
 impl Point {
     // 定义静态方法
     fn new(x: i32, y: i32) -> Point {
@@ -52,7 +53,7 @@ println!("x: {}, y: {}", p1.x, p1.y);
 // >> x: 30, y: 30
 ```
 
-通过给`struct`定义方法，我们就可以完成面向对象中的大部分`class`的功能了。但Rust中`struct`并不具备继承的其他`struct`的能力，相反Rust采用了`trait`这样的机制，类似C++中的`interface`，来完成继承的功能，这个我们暂时不细讲。
+通过给`struct`定义方法，我们就可以完成`class`中的大部分面向对象的功能了。但Rust中`struct`并不具备继承的其他`struct`的能力，相反Rust采用了`trait`这样的机制，类似C++中的`interface`，来完成继承的功能，这个我们暂时不细讲。
 
 ## String
 
@@ -73,6 +74,8 @@ let mut x = String::new();
 
 ```rust
 let mut x = String::from("bbc");
+// 或者
+let mut y = "bbc".to_string();
 ```
 
 然后我们就可以在需要的时候，向`String`中追加其他内容：
