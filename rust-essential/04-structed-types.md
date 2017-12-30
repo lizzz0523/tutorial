@@ -118,4 +118,4 @@ let mut x = vec![1, 2, 3];
 
 ## Option
 
-## Resutl
+## Result
