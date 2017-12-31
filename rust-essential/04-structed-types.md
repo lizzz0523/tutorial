@@ -70,12 +70,14 @@ let x = "abc";
 let mut x = String::new();
 ```
 
-或者我们可以直接通过`&str`来声明`String`：
+此外我们可以直接通过`&str`来声明`String`：
 
 ```rust
 let mut x = String::from("bbc");
 // 或者
 let mut y = "bbc".to_string();
+// 或者
+let mut z = format!("{} world", "hello");
 ```
 
 然后我们就可以在需要的时候，向`String`中追加其他内容：
@@ -88,6 +90,13 @@ x.push_str("abc");
 // 或者直接通过加号运算符追加字符串
 x += "abc";
 ```
+
+需要注意的是，`String`和`&str`一样，内部采用utf-8编码，而Rust作为一门系统级的编程语言，很多时候都需要和系统打交道。而有些系统的字符串编码并不是utf-8，因此Rust另外给我们提供了一些处理“特殊”字符串的`struct`。
+
+* 处理文件路径时使用`std::path::PathBuf`和`&Path`
+* 处理命令行参数时使用`OsString`和`&OsStr`
+* 与C语言编写的库交互时使用`std::ffi::CString`和`&CStr`
+* 处理二进制流时使用`Vec<u8>`和`&[u8]`
 
 ## Vec
 
@@ -106,10 +115,36 @@ x.push(2);
 x.push(3);
 ```
 
-为了保持与数组字面量相似的编程体验，Rust为我们预定义了宏`vec!`，方便我们直接定义`Vec<T>`：
+由于`Vec<T>`中的内存是在堆上动态分配的，因此在栈上实际只保留了三个值，一个是指向堆中内存起始地址的指针，一个是堆中已分配内存的容量`capacity`，最后一个是`Vec<T>`中已存在的项的个数，也就是它的长度`length`。每当`length`等于`capacity`时，如果我们继续向`Vec<T>`中追加新的项时，就会触发Rust中重新分配内存，`Vec<T>`会把旧内存上的项复制到新的内存上，并且释放旧的内存，同时把指针重新指向新的内存地址。（注意，在上一节中说到的`String`，也有类似的机制）
+
+而内存的分配实际是比较费时的，因此在初始化`Vec<T>`时，如果我们已知`Vec<T>`所需要的容量，我们可以使用`with_capacity`方法代替`new`方法来提高性能：
+
+```rust
+let mut x = Vec::with_capacity(3);
+x.push(1);
+x.push(2);
+x.push(3);
+```
+
+同时为了保持与数组字面量相似的编程体验，Rust为我们预定义了宏`vec!`，方便我们直接定义`Vec<T>`：
 
 ```rust
 let mut x = vec![1, 2, 3];
+// 如果每一项都相同
+let mut y = vec![0; 10];
+```
+
+在初始化后，我们就通过`Vec<T>`提供的方法来操作它：
+
+```rust
+x.insert(2, 10);
+// >> [1, 2, 10, 3]
+
+x.remove(0);
+// >> [2, 10, 3]
+
+x.pop();
+// >> [2, 10]
 ```
 
 ## Box
